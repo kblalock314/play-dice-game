@@ -1,0 +1,74 @@
+body {
+  background-color: bisque;
+}
+
+body {
+  padding: 20px;
+  text-align: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'RocknRoll One', sans-serif;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+p {
+  font-family: 'Open Sans';
+  line-height: 20px;
+  text-align: center;
+  max-width: 1000px;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.dice {
+  width: 75px;
+  padding: 5px;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+}
+
+#continue,
+#startover {
+  display: none;
+}
+
+.status {
+  display: block;
+}
+
+button {
+  color: black;
+  background-color: white;
+  font-family: 'Open Sans';
+  padding: 10px;
+  border-color: black;
+}
+
+.btn-light {
+  border-color: black;
+}
+
+@media screen and (min-width: 700px) {
+  body {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}

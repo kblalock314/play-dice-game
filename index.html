@@ -1,235 +1,69 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Dice Game</title>
-<style>
-body, p, #rolldice {
-	margin: auto;
-	text-align: center;
-}	
-
-div.dice{
-	width:32px;
-	background:#F5F5F5;
-	border:#999 1px solid;
-	padding:10px;
-	font-size:24px;
-	text-align:center;
-	margin:5px;
-}
-
-.flex {
-	display:flex;
-	justify-content:center;
-}	
-
-#continue, #startover {
-	display: none;
-}	
-	
-</style>
-<script>
-
-//Initiate global variables for dice numbers and their total
-var d1;
-var d2;
-var DiceTotal;
-
-//Initiate variables for holding die points
-var compPoints = parseFloat(0);
-var playerPoints = parseFloat(0);
-
-
-//Function to generate random numbers for two dice and store them (and their total) into variables
-function generateRandom() 
-{
-	//Generate two random numbers and store them into the global dice variables
-	d1 = Math.floor(Math.random() * 6) + 1;
-	d2 = Math.floor(Math.random() * 6) + 1;
-	
-	//Store the total of the two dice into a variable
-	DiceTotal = parseFloat(d1 + d2);
-}
-
-//Function for updating the HTML with dice numbers and their total for the computer's turn
-function computerDiceDisplay() 
-{	
-	//Store computer's HTML IDs into local variables
-	var compdie1 = document.getElementById("compdie1");
-	var compdie2 = document.getElementById("compdie2");
-	var compstatus = document.getElementById("compstatus");
-	
-	//Roll the dice
-	generateRandom();
-	
-	//Store global dice variables into new unique variables
-	compd1 = d1;
-	compd2 = d2;
-	compDiceTotal = DiceTotal;
-	
-	//Display the player's dice numbers and their total on the page
-	compdie1.innerHTML = compd1;
-	compdie2.innerHTML = compd2;
-	compstatus.innerHTML = "The computer rolled "+ compDiceTotal +".";
-
-}
-
-//Function for updating the HTML with dice numbers and their total for the player's turn
-function playerDiceDisplay() 
-{
-	//Store player's HTML IDs into local variables
-	var playerdie1 = document.getElementById("playerdie1");
-	var playerdie2 = document.getElementById("playerdie2");
-	var playerstatus = document.getElementById("playerstatus");
-	
-	//Roce the dice
-	generateRandom();
-	
-	//Store the global dice variables into new unique variables
-	playerd1 = d1;
-	playerd2 = d2;
-	playerDiceTotal = DiceTotal;
-	
-	//Display the player's dice numbers and their total on the page
-	playerdie1.innerHTML = playerd1;
-	playerdie2.innerHTML = playerd2;
-	playerstatus.innerHTML = "You rolled "+ playerDiceTotal +".";
-
-}	
-
-//Function to roll the dice for both the player and computer on click
-function rollDice()
-{
-	//Make sure the double points message on the page gets removed if it was previously displayed
-	doublepoints.innerHTML = "";
-	
-	//Generate two dice numbers and their total for each player
-	playerDiceDisplay();
-	computerDiceDisplay();
-	
-	//If the player's total is greater than the computer's total, announce that the player has won
-	if (playerDiceTotal > compDiceTotal)
-	{
-		winner.innerHTML = "You win this round!";
-		
-		//If the player rolled a double, double their points for this round and add that number to their running total
-		if (playerd1 == playerd2)
-		{
-			doublepoints.innerHTML = "You also rolled a double, you get double points!";
-			playerPoints = playerPoints + (playerDiceTotal * 2);
-		}
-		
-		//If the player did not roll a double, add their dice total for this round to their running total
-		else
-		{
-			playerPoints = playerPoints + playerDiceTotal;
-		}	
-	}
-	
-	//If the computer's total is greater than the player's total, announce that the computer has won
-	if (compDiceTotal > playerDiceTotal)
-	{
-		winner.innerHTML = "The computer wins this round!";
-		
-		//If the computer rolled a double, double their points for this round and add that number to their running total
-		if (compd1 == compd2)
-		{
-			doublepoints.innerHTML = "The computer also rolled a double, they get double points!";
-			compPoints = compPoints + (compDiceTotal * 2);
-		}
-		
-		//If the computer did not roll a double, add their dice total for this round to their running total
-		else
-		{
-		compPoints = compPoints + compDiceTotal;
-		}
-	}
-	
-	//If there is a tie, announce it and don't give anyone points
-	if (playerDiceTotal == compDiceTotal)
-	{
-		winner.innerHTML = "It's a tie. Nobody wins this round!";
-	}
-	
-	//Update which buttons display, and display each player's points, after the first round
-	document.getElementById("continue").style.display = "block";
-	document.getElementById("startover").style.display = "block";
-	document.getElementById("rolldice").style.display = "none";
-	playerPointsDisplay.innerHTML = "Player Points: " + playerPoints;
-	compPointsDisplay.innerHTML = "Computer Points: " + compPoints;
-	
-	//If the player's running total hits 100 or more, end the game and announnce that they have won
-	if (playerPoints >= 100)
-	{
-		finalwinner.innerHTML = "You reached 100 points first. You win!!! :)";
-		document.getElementById("continue").style.display = "none";
-	}
-	
-	//If the computer's running total hits 100 or more, end the game and announnce that the play has lost
-	if (compPoints >= 100)
-	{
-		finalwinner.innerHTML = "The computer reached 100 points first. You lost! :'(";
-		document.getElementById("continue").style.display = "none";
-	}
-	
-}	
-
-//Function for the Start Over button to reset all variables, clear out any game text, and hide and show the appropriate buttons
-function startOver() {
-	playerdie1.innerHTML = 0;
-    playerdie2.innerHTML = 0;
-    playerstatus.innerHTML = "";
-	playerPoints = 0;
-	playerPointsDisplay.innerHTML = "";
-	
-	compdie1.innerHTML = 0;
-    compdie2.innerHTML = 0;
-    compstatus.innerHTML = "";
-	compPoints = 0;
-	compPointsDisplay.innerHTML = "";
-	
-	winner.innerHTML = "";
-	doublepoints.innerHTML = "";
-	finalwinner.innerHTML = "";
-	
-	document.getElementById("continue").style.display = "none";
-	document.getElementById("startover").style.display = "none";
-	document.getElementById("rolldice").style.display = "flex";
-}
-	
-</script>
-</head>
-<body>
-<h1>Play the Dice Game!</h1>
-<p style="max-width:500px">Each round, whoever rolls the highest dice total wins. That total is added to the winner's running total. If you win and roll a double in the same round, you get double points! The first player to 100 points wins.</p>
-<br><br>
-<p>Your dice:</p>
-<div class="flex">
-	<div id="playerdie1" class="dice">0</div>
-	<div id="playerdie2" class="dice">0</div>
-</div>	
-<br>
-<p>The computer's dice:</p>
-<div class="flex">
-	<div id="compdie1" class="dice">0</div>
-	<div id="compdie2" class="dice">0</div>
-</div>	
-<br><br>
-<button onclick="rollDice()" id="rolldice">Roll Dice</button>
-<div class="flex">
-	<div id="playerstatus"></div>&nbsp;
-	<div id="compstatus"></div>&nbsp;
-	<div id="winner"></div>
-</div>
-<p id="doublepoints"></p>
-<div class="flex">
-	<h3 id="playerPointsDisplay"></h3>	&nbsp;&nbsp;&nbsp;&nbsp;
-	<h3 id="compPointsDisplay"></h3>
-</div>
-<h1 id="finalwinner"></h1>
-<div class="flex">
-	<button id="continue" onclick="rollDice()">Continue</button>&nbsp;
-	<button id="startover" onclick="startOver()">Start Over</button>
-</div>
-</body>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="static/js/dice.js" charset="utf-8"></script>
+    <script src="static/js/all.js"></script>
+    <link rel="stylesheet" href="static/styles/resetstyle.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=RocknRoll+One&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="static/styles/style.css" />
+    <title>Dice Game</title>
+  </head>
+  <body>
+    <h1>Play the Dice Game!</h1>
+    <p>
+      Each round, whoever rolls the highest dice total wins. That total is added
+      to the winner's running total. If you win and roll a double in the same
+      round, you get double points! The first player to 100 points wins.
+    </p>
+    <h3>Your dice:</h3>
+    <div class="flex">
+      <img src="static/images/dice6.png"
+        id="playericon1"
+        alt="dice"
+        class="dice"
+      >
+      <img src="static/images/dice6.png"
+        id="playericon2"
+        alt="dice"
+        class="dice"
+      ></div>
+    </div>
+    <br />
+    <h3>The computer's dice:</h3>
+    <div class="flex">
+          <img src="static/images/dice6.png"
+        id="compicon1"
+        alt="dice"
+        class="dice"
+      >
+      <img src="static/images/dice6.png"
+        id="compicon2"
+        alt="dice"
+        class="dice"
+      ></div>
+    </div>
+    <br>
+    <button onclick="rollDice()" class="btn btn-light" id="rolldice">Roll Dice</button>
+    <div id="results">
+      <div class="status">
+        <p id="playerstatus"> </p>
+        <p id="compstatus"> </p>
+        <p id="winner"> </p>
+      </div>
+      <p id="doublepoints"></p>
+      <div class="flex">
+        <h3 id="playerPointsDisplay"></h3>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h3 id="compPointsDisplay"></h3>
+      </div>
+    <h3 id="finalwinner"></h3>
+    </div>
+    <div class="flex">
+      <button id="continue" class="btn btn-light" onclick="rollDice()">Continue</button>&nbsp;
+      <button id="startover" class="btn btn-light" onclick="startOver()">Start Over</button>
+    </div>
+  </body>
 </html>
