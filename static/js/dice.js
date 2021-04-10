@@ -147,7 +147,7 @@ function startOver() {
 
   document.getElementById('continue').style.display = 'none';
   document.getElementById('startover').style.display = 'none';
-  document.getElementById('rolldice').style.display = 'flex';
+  document.getElementById('rolldice').style.display = 'inline-block';
 }
 
 //Function to update the dice images being displayed
