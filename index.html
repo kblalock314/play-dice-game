@@ -2,8 +2,6 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="static/js/dice.js" charset="utf-8"></script>
-    <script src="static/js/all.js"></script>
     <link rel="stylesheet" href="static/styles/resetstyle.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -46,7 +44,7 @@
       ></div>
     </div>
     <br>
-    <button onclick="rollDice()" class="btn btn-light" id="rolldice">Roll Dice</button>
+    <button class="btn btn-light" id="rolldice">Roll Dice</button>
     <div id="results">
       <div class="status">
         <p id="playerstatus"> </p>
@@ -62,8 +60,9 @@
     <h3 id="finalwinner"></h3>
     </div>
     <div class="flex">
-      <button id="continue" class="btn btn-light" onclick="rollDice()">Continue</button>&nbsp;
-      <button id="startover" class="btn btn-light" onclick="startOver()">Start Over</button>
+      <button id="continue" class="btn btn-light">Continue</button>&nbsp;
+      <button id="startover" class="btn btn-light">Start Over</button>
     </div>
+    <script src="static/js/dice.js"></script>
   </body>
 </html>
