@@ -1,55 +1,27 @@
-//Initiate global variables for dice numbers and their total
-var d1;
-var d2;
-var DiceTotal;
+//Store IDs into variables
+var rollDiceButton = document.getElementById('rolldice');
+var continueButton = document.getElementById('continue');
+var startOverButton = document.getElementById('rolldice');
+var playerIcon1 = document.getElementById('playericon1');
+var playerIcon2 = document.getElementById('playericon2');
+var playerStatus = document.getElementById('playerstatus');
+var compIcon1 = document.getElementById('compicon1');
+var compIcon2 = document.getElementById('compicon2');
+var compStatus = document.getElementById('compstatus');
 
-//Initiate variables for holding die points
-var compPoints = parseFloat(0);
-var playerPoints = parseFloat(0);
-
-//Function to generate random numbers for two dice and store them (and their total) into variables
-function generateRandom() {
-  //Generate two random numbers and store them into the global dice variables
-  d1 = Math.floor(Math.random() * 6) + 1;
-  d2 = Math.floor(Math.random() * 6) + 1;
-
-  //Store the total of the two dice into a variable
-  DiceTotal = parseFloat(d1 + d2);
-}
-
-//Function for updating the HTML with dice numbers and their total for the player's turn
-function playerDiceDisplay() {
-  //Roll the dice
-  generateRandom();
-
-  //Store the global dice variables into new unique variables
-  playerd1 = d1;
-  playerd2 = d2;
-  playerDiceTotal = DiceTotal;
-  icon1 = document.getElementById('playericon1');
-  icon2 = document.getElementById('playericon2');
-//Initiate global variables for dice numbers and their total
-var d1;
-var d2;
-var diceTotal;
-
-//Initiate variables for holding die points
-var compPoints = 0;
-var playerPoints = 0;
-
-//add event listeners
-document.getElementById('rolldice').addEventListener('click', rollDice);
-document.getElementById('continue').addEventListener('click', rollDice);
-document.getElementById('startover').addEventListener('click', startOver);
+//Add event listeners where needed
+rollDiceButton.addEventListener('click', rollDice);
+continueButton.addEventListener('click', rollDice);
+startOverButton.addEventListener('click', startOver);
 
 //Function to generate random numbers for two dice and store them (and their total) into variables
 function generateRandom() {
   //Generate two random numbers and store them into the global dice variables
-  d1 = Math.floor(Math.random() * 6) + 1;
-  d2 = Math.floor(Math.random() * 6) + 1;
+  var d1 = Math.floor(Math.random() * 6) + 1;
+  var d2 = Math.floor(Math.random() * 6) + 1;
 
   //Store the total of the two dice into a variable
-  diceTotal = d1 + d2;
+  var diceTotal = d1 + d2;
 }
 
 //Function for updating the HTML with dice numbers and their total for the player's turn
@@ -61,13 +33,10 @@ function playerDiceDisplay() {
   playerd1 = d1;
   playerd2 = d2;
   playerDiceTotal = diceTotal;
-  playericon1 = document.getElementById('playericon1');
-  playericon2 = document.getElementById('playericon2');
 
   //Display the player's dice numbers and their total on the page
-  updateIcons(playericon1, playericon2, playerd1, playerd2);
-  var playerstatus = document.getElementById('playerstatus');
-  playerstatus.innerText = 'You rolled ' + playerDiceTotal + '.   ';
+  updateIcons(playerIcon1, playerIcon2, playerd1, playerd2);
+  playerStatus.innerText = 'You rolled ' + playerDiceTotal + '.   ';
 }
 
 //Function for updating the HTML with dice numbers and their total for the computer's turn
@@ -79,19 +48,20 @@ function computerDiceDisplay() {
   compd1 = d1;
   compd2 = d2;
   compDiceTotal = diceTotal;
-  compicon1 = document.getElementById('compicon1');
-  compicon2 = document.getElementById('compicon2');
 
   //Display the player's dice numbers and their total on the page
-  updateIcons(compicon1, compicon2, compd1, compd2);
-  var compstatus = document.getElementById('compstatus');
-  compstatus.innerText = 'The computer rolled ' + compDiceTotal + '.   ';
+  updateIcons(compIcon1, compIcon2, compd1, compd2);
+  compStatus.innerText = 'The computer rolled ' + compDiceTotal + '.   ';
 }
 
 //Function to roll the dice for both the player and computer on click
 function rollDice() {
   //Make sure the double points message on the page gets removed if it was previously displayed
   doublepoints.innerText = '';
+
+  //Initiate variables for holding die points
+  var compPoints = 0;
+  var playerPoints = 0;
 
   //Generate two dice numbers and their total for each player
   playerDiceDisplay();
@@ -137,23 +107,23 @@ function rollDice() {
   }
 
   //Update which buttons display, and display each player's points, after the first round
-  document.getElementById('continue').style.display = 'block';
-  document.getElementById('startover').style.display = 'block';
-  document.getElementById('rolldice').style.display = 'none';
+  continueButton.style.display = 'block';
+  startOverButton.style.display = 'block';
+  rollDiceButton.style.display = 'none';
   playerPointsDisplay.innerText = 'Player Points: ' + playerPoints;
   compPointsDisplay.innerText = 'Computer Points: ' + compPoints;
 
   //If the player's running total hits 100 or more, end the game and announnce that they have won
   if (playerPoints >= 100) {
     finalwinner.innerText = 'You reached 100 points first. You win!!! :)';
-    document.getElementById('continue').style.display = 'none';
+    continueButton.style.display = 'none';
   }
 
   //If the computer's running total hits 100 or more, end the game and announnce that the play has lost
   if (compPoints >= 100) {
     finalwinner.innerText =
       "The computer reached 100 points first. You lost! :'(";
-    document.getElementById('continue').style.display = 'none';
+    continueButton.style.display = 'none';
   }
 }
 
@@ -180,9 +150,9 @@ function startOver() {
     item.innerText = '';
   }
 
-  document.getElementById('continue').style.display = 'none';
-  document.getElementById('startover').style.display = 'none';
-  document.getElementById('rolldice').style.display = 'inline-block';
+  continueButton.style.display = 'none';
+  startOverButton.style.display = 'none';
+  rollDiceButton.style.display = 'inline-block';
 }
 
 //Function to update the dice images being displayed
