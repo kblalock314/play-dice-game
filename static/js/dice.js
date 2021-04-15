@@ -1,27 +1,36 @@
-//Store IDs into variables
-var rollDiceButton = document.getElementById('rolldice');
-var continueButton = document.getElementById('continue');
-var startOverButton = document.getElementById('rolldice');
-var playerIcon1 = document.getElementById('playericon1');
-var playerIcon2 = document.getElementById('playericon2');
-var playerStatus = document.getElementById('playerstatus');
-var compIcon1 = document.getElementById('compicon1');
-var compIcon2 = document.getElementById('compicon2');
-var compStatus = document.getElementById('compstatus');
+//Store HTML IDs into variables
+const playerIcon1 = document.getElementById('playericon1');
+const playerIcon2 = document.getElementById('playericon2');
+const playerStatus = document.getElementById('playerstatus');
+const compIcon1 = document.getElementById('compicon1');
+const compIcon2 = document.getElementById('compicon2');
+const compStatus = document.getElementById('compstatus');
+const continueButton = document.getElementById('continue');
+const startOverButton = document.getElementById('startover');
+const rollDiceButton = document.getElementById('rolldice');
 
-//Add event listeners where needed
+//Add event listeners
 rollDiceButton.addEventListener('click', rollDice);
 continueButton.addEventListener('click', rollDice);
 startOverButton.addEventListener('click', startOver);
 
+//Initiate global variables for dice numbers and their total
+var d1;
+var d2;
+var diceTotal;
+
+//Initiate variables for holding die points
+var compPoints = 0;
+var playerPoints = 0;
+
 //Function to generate random numbers for two dice and store them (and their total) into variables
 function generateRandom() {
   //Generate two random numbers and store them into the global dice variables
-  var d1 = Math.floor(Math.random() * 6) + 1;
-  var d2 = Math.floor(Math.random() * 6) + 1;
+  d1 = Math.floor(Math.random() * 6) + 1;
+  d2 = Math.floor(Math.random() * 6) + 1;
 
   //Store the total of the two dice into a variable
-  var diceTotal = d1 + d2;
+  diceTotal = d1 + d2;
 }
 
 //Function for updating the HTML with dice numbers and their total for the player's turn
@@ -58,10 +67,6 @@ function computerDiceDisplay() {
 function rollDice() {
   //Make sure the double points message on the page gets removed if it was previously displayed
   doublepoints.innerText = '';
-
-  //Initiate variables for holding die points
-  var compPoints = 0;
-  var playerPoints = 0;
 
   //Generate two dice numbers and their total for each player
   playerDiceDisplay();
@@ -135,9 +140,9 @@ function startOver() {
   compPoints = 0;
 
   let items = [
-    playerstatus,
+    playerStatus,
     playerPointsDisplay,
-    compstatus,
+    compStatus,
     compPointsDisplay,
     winner,
     doublepoints,
